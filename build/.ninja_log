@@ -1,0 +1,16 @@
+# ninja log v6
+1	302	7691285326912228	CMakeFiles/sudoku_game.dir/main.cpp.obj	ee78a60c6b0a2b15
+3	260	7691290350878415	CMakeFiles/sudoku_game.dir/main.cpp.obj	ee78a60c6b0a2b15
+15	280	7691290653052452	CMakeFiles/sudoku_game.dir/main.cpp.obj	ee78a60c6b0a2b15
+6	300	7691315559580902	CMakeFiles/sudoku_game.dir/sudoko.cpp.obj	65ebb24b32ddeeb5
+2	324	7691315559580902	CMakeFiles/sudoku_game.dir/main.cpp.obj	ee78a60c6b0a2b15
+324	660	7691315562820162	sudoku_game.exe	48b9bdb41f0289d1
+3	322	7691316695146554	CMakeFiles/sudoku_game.dir/main.cpp.obj	ee78a60c6b0a2b15
+322	593	7691316698334158	sudoku_game.exe	48b9bdb41f0289d1
+6	297	7691318351758732	CMakeFiles/sudoku_game.dir/sudoko.cpp.obj	65ebb24b32ddeeb5
+14	306	7691318558974994	CMakeFiles/sudoku_game.dir/main.cpp.obj	ee78a60c6b0a2b15
+307	568	7691318561887231	sudoku_game.exe	48b9bdb41f0289d1
+15	316	7691318923317992	CMakeFiles/sudoku_game.dir/main.cpp.obj	ee78a60c6b0a2b15
+316	583	7691318926306042	sudoku_game.exe	48b9bdb41f0289d1
+17	330	7691321582139639	CMakeFiles/sudoku_game.dir/main.cpp.obj	ee78a60c6b0a2b15
+330	592	7691321585270409	sudoku_game.exe	48b9bdb41f0289d1

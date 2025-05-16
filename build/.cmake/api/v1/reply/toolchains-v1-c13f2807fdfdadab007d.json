@@ -1,0 +1,134 @@
+{
+	"kind" : "toolchains",
+	"toolchains" : 
+	[
+		{
+			"compiler" : 
+			{
+				"id" : "GNU",
+				"implicit" : 
+				{
+					"includeDirectories" : 
+					[
+						"C:/Program Files/CodeBlocks/MinGW/lib/gcc/mingw32/5.1.0/include",
+						"C:/Program Files/CodeBlocks/MinGW/include",
+						"C:/Program Files/CodeBlocks/MinGW/lib/gcc/mingw32/5.1.0/include-fixed"
+					],
+					"linkDirectories" : 
+					[
+						"C:/Program Files/CodeBlocks/MinGW/lib/gcc/mingw32/5.1.0",
+						"C:/Program Files/CodeBlocks/MinGW/lib/gcc",
+						"C:/Program Files/CodeBlocks/MinGW/mingw32/lib",
+						"C:/Program Files/CodeBlocks/MinGW/lib"
+					],
+					"linkFrameworkDirectories" : [],
+					"linkLibraries" : 
+					[
+						"mingw32",
+						"gcc",
+						"moldname",
+						"mingwex",
+						"pthread",
+						"advapi32",
+						"shell32",
+						"user32",
+						"kernel32",
+						"mingw32",
+						"gcc",
+						"moldname",
+						"mingwex"
+					]
+				},
+				"path" : "C:/Program Files/CodeBlocks/MinGW/bin/gcc.exe",
+				"version" : "5.1.0"
+			},
+			"language" : "C",
+			"sourceFileExtensions" : 
+			[
+				"c",
+				"m"
+			]
+		},
+		{
+			"compiler" : 
+			{
+				"id" : "GNU",
+				"implicit" : 
+				{
+					"includeDirectories" : 
+					[
+						"C:/Program Files/CodeBlocks/MinGW/lib/gcc/mingw32/5.1.0/include/c++",
+						"C:/Program Files/CodeBlocks/MinGW/lib/gcc/mingw32/5.1.0/include/c++/mingw32",
+						"C:/Program Files/CodeBlocks/MinGW/lib/gcc/mingw32/5.1.0/include/c++/backward",
+						"C:/Program Files/CodeBlocks/MinGW/lib/gcc/mingw32/5.1.0/include",
+						"C:/Program Files/CodeBlocks/MinGW/include",
+						"C:/Program Files/CodeBlocks/MinGW/lib/gcc/mingw32/5.1.0/include-fixed"
+					],
+					"linkDirectories" : 
+					[
+						"C:/Program Files/CodeBlocks/MinGW/lib/gcc/mingw32/5.1.0",
+						"C:/Program Files/CodeBlocks/MinGW/lib/gcc",
+						"C:/Program Files/CodeBlocks/MinGW/mingw32/lib",
+						"C:/Program Files/CodeBlocks/MinGW/lib"
+					],
+					"linkFrameworkDirectories" : [],
+					"linkLibraries" : 
+					[
+						"C:/PROGRA~1/CodeBlocks/MinGW/lib/gcc/mingw32/5.1.0/libstdc++.a",
+						"mingw32",
+						"gcc",
+						"moldname",
+						"mingwex",
+						"pthread",
+						"advapi32",
+						"shell32",
+						"user32",
+						"kernel32",
+						"mingw32",
+						"gcc",
+						"moldname",
+						"mingwex"
+					]
+				},
+				"path" : "C:/Program Files/CodeBlocks/MinGW/bin/g++.exe",
+				"version" : "5.1.0"
+			},
+			"language" : "CXX",
+			"sourceFileExtensions" : 
+			[
+				"C",
+				"M",
+				"c++",
+				"cc",
+				"cpp",
+				"cxx",
+				"mm",
+				"mpp",
+				"CPP",
+				"ixx",
+				"cppm",
+				"ccm",
+				"cxxm",
+				"c++m"
+			]
+		},
+		{
+			"compiler" : 
+			{
+				"implicit" : {},
+				"path" : "C:/Program Files/CodeBlocks/MinGW/bin/windres.exe"
+			},
+			"language" : "RC",
+			"sourceFileExtensions" : 
+			[
+				"rc",
+				"RC"
+			]
+		}
+	],
+	"version" : 
+	{
+		"major" : 1,
+		"minor" : 0
+	}
+}
