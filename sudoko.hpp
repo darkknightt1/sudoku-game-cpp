@@ -22,10 +22,12 @@ namespace sudukogame
 class suduko{
     public:
         void setboardfromfile(std::ifstream &sudukoboardfile);
-      
-
+        suduko(int board);
+        
+        
     private:
         std::vector<std::vector<int>> board; 
+        int boardsize;
 
         
 

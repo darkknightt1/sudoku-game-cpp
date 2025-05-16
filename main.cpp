@@ -2,17 +2,17 @@
 
 int main()
 {
-    std::cout<<"why";
-    sudukogame::suduko s1;
+    sudukogame::suduko s1(9);
     std::ifstream sudukofilee("suduko.suduko");
     if (!sudukofilee.is_open())
     {
-        std::cout<<"cant open";
+        //throw error
+        #if DEBUG
+        std::cout<<"cant open file\n";
+        #endif
     }
-    else
-    {
-        s1.setboardfromfile(sudukofilee);
-    }
+    else s1.setboardfromfile(sudukofilee);
     
     return 0;
 }
+
