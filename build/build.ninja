@@ -12,7 +12,7 @@
 
 # =============================================================================
 # Project: SudokuGame
-# Configurations: Debug
+# Configurations: 
 # =============================================================================
 
 #############################################
@@ -20,11 +20,6 @@
 
 ninja_required_version = 1.5
 
-
-#############################################
-# Set configuration variable for custom commands.
-
-CONFIGURATION = Debug
 # =============================================================================
 # Include auxiliary files.
 
@@ -49,19 +44,19 @@ cmake_ninja_workdir = E$:/DOWNLOADS/C++Project_Suduko/build/
 
 build cmake_object_order_depends_target_sudoku_game: phony || .
 
-build CMakeFiles/sudoku_game.dir/main.cpp.obj: CXX_COMPILER__sudoku_game_unscanned_Debug E$:/DOWNLOADS/C++Project_Suduko/main.cpp || cmake_object_order_depends_target_sudoku_game
-  CONFIG = Debug
+build CMakeFiles/sudoku_game.dir/main.cpp.obj: CXX_COMPILER__sudoku_game_unscanned_ E$:/DOWNLOADS/C++Project_Suduko/main.cpp || cmake_object_order_depends_target_sudoku_game
   DEP_FILE = CMakeFiles\sudoku_game.dir\main.cpp.obj.d
-  FLAGS = -g -std=gnu++11
+  FLAGS = -std=gnu++17
+  INCLUDES = -IE:/DOWNLOADS/C++Project_Suduko/include
   OBJECT_DIR = CMakeFiles\sudoku_game.dir
   OBJECT_FILE_DIR = CMakeFiles\sudoku_game.dir
 
-build CMakeFiles/sudoku_game.dir/sudoko.cpp.obj: CXX_COMPILER__sudoku_game_unscanned_Debug E$:/DOWNLOADS/C++Project_Suduko/sudoko.cpp || cmake_object_order_depends_target_sudoku_game
-  CONFIG = Debug
-  DEP_FILE = CMakeFiles\sudoku_game.dir\sudoko.cpp.obj.d
-  FLAGS = -g -std=gnu++11
+build CMakeFiles/sudoku_game.dir/src/sudoko.cpp.obj: CXX_COMPILER__sudoku_game_unscanned_ E$:/DOWNLOADS/C++Project_Suduko/src/sudoko.cpp || cmake_object_order_depends_target_sudoku_game
+  DEP_FILE = CMakeFiles\sudoku_game.dir\src\sudoko.cpp.obj.d
+  FLAGS = -std=gnu++17
+  INCLUDES = -IE:/DOWNLOADS/C++Project_Suduko/include
   OBJECT_DIR = CMakeFiles\sudoku_game.dir
-  OBJECT_FILE_DIR = CMakeFiles\sudoku_game.dir
+  OBJECT_FILE_DIR = CMakeFiles\sudoku_game.dir\src
 
 
 # =============================================================================
@@ -71,9 +66,7 @@ build CMakeFiles/sudoku_game.dir/sudoko.cpp.obj: CXX_COMPILER__sudoku_game_unsca
 #############################################
 # Link the executable sudoku_game.exe
 
-build sudoku_game.exe: CXX_EXECUTABLE_LINKER__sudoku_game_Debug CMakeFiles/sudoku_game.dir/main.cpp.obj CMakeFiles/sudoku_game.dir/sudoko.cpp.obj
-  CONFIG = Debug
-  FLAGS = -g
+build sudoku_game.exe: CXX_EXECUTABLE_LINKER__sudoku_game_ CMakeFiles/sudoku_game.dir/main.cpp.obj CMakeFiles/sudoku_game.dir/src/sudoko.cpp.obj
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\sudoku_game.dir
   POST_BUILD = cd .
