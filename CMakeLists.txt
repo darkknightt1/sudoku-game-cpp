@@ -18,7 +18,7 @@ include_directories(include)
 #find_package(Qt6 REQUIRED COMPONENTS Widgets)
 
 # Add executable and source files
-add_executable(sudoku_game main.cpp src/sudoko.cpp)
+add_executable(sudoku_game src/main.cpp src/sudoko.cpp src/sudoku_solver.cpp)
 
 # Link Qt libraries
 #target_link_libraries(sudoku_game PRIVATE Qt6::Widgets)

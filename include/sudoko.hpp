@@ -10,10 +10,9 @@
 #include <string>
 
 #include <vector>
-
-#if GUI == 0
 #include <iostream>
-#endif
+
+
 
 namespace sudukogame
 {
@@ -26,22 +25,27 @@ class board{
         //virtual ~board();
     
     public:
+        //io file
         void setboard_from_originalfile(std::ifstream &sudukooriginalboard  );
         void setboard_from_progressfile(std::ifstream &sudukooriginal ,std::ifstream &sudukoprogress);
         void save_progress_to_file(std::ofstream& progressfile);
+        
+        //board
         void modify_board(int col , int row , int val);
+        void reset_board(std::ifstream &sudukooriginal , std::ofstream &sudukoprogress);
         void print_board();
-        bool is_solved();
+        std::vector<std::vector<int>>& get_grid();
         
         
-        
+
     private:
         std::vector<std::vector<int>> grid; 
         std::vector<std::vector<bool>> okaytowrite; 
         int boardsize;
         int lvl;
+        int movesallowed;//record no. of empty cells in the board
 
-
+    
 };
 
 class SudukoGame:public board

@@ -1,6 +1,6 @@
-#include "include/sudoko.hpp"
-#include <filesystem> // C++17
-
+#include "sudoko.hpp"
+#include <filesystem>      // C++17
+#include "sudoku_solver.hpp"
 
 int main()
 {
@@ -29,12 +29,15 @@ int main()
     int row;
     int col;
     int val;
-    std::cin>>row;
-    std::cin>>col;
-    std::cin>>val;
-    s1.modify_board(col,row,val);
+    // std::cin>>row;
+    // std::cin>>col;
+    // std::cin>>val;
+    // s1.modify_board(col,row,val);
     s1.print_board();
-    s1.is_solved();
+
+    suduko::suduko_solver solver(s1.get_grid(),9);
+    solver.solve_backtracking();
+    solver.print_board();
 
 
     

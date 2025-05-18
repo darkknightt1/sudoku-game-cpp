@@ -1,6 +1,6 @@
 #include "../include/sudoko.hpp"
 #include <cmath>
-#include <unordered_set>
+
 
 
 namespace sudukogame
@@ -14,6 +14,7 @@ namespace sudukogame
 
         std::string line;
         int row = 0;
+        this->movesallowed=0;
         while ( getline(sudukooriginalboard,line) )//loop through lines in the text file
         {
             // Skip separator lines
@@ -31,6 +32,7 @@ namespace sudukogame
                 if (token == ".") {
                     grid[row][col] = 0;
                     okaytowrite[row][col] = true;
+                    movesallowed++;
                 } else {
                     grid[row][col] = std::stoi(token);
                     okaytowrite[row][col] = false;
@@ -44,7 +46,6 @@ namespace sudukogame
         
     }
 
-
     void board::setboard_from_progressfile(std::ifstream &sudukooriginal , std::ifstream &sudukoprogress )
     {
 
@@ -57,6 +58,7 @@ namespace sudukogame
         #endif
 
         std::string line;
+        this->movesallowed = 0;
         int row = 0;
 
         while ( getline(sudukooriginal,line) )//loop through lines in the original suduko file
@@ -103,8 +105,11 @@ namespace sudukogame
                     continue;
 
                 if (token == ".") 
-                grid[row][col] = 0;
-                    
+                {
+                    grid[row][col] = 0;
+                    movesallowed++;
+                } 
+
                  else 
                 grid[row][col] = std::stoi(token);
         
@@ -165,6 +170,12 @@ namespace sudukogame
         }
     }
     
+    void board::reset_board(std::ifstream &sudukooriginal , std::ofstream &sudukoprogress)
+    {
+        setboard_from_originalfile(sudukooriginal);
+        save_progress_to_file(sudukoprogress);    
+    } 
+
     void board::print_board()
     {
         int root =static_cast<int> (std::sqrt(boardsize));
@@ -187,36 +198,12 @@ namespace sudukogame
         std::cout << "-------------------------------------\n";
 
     }
-
-    bool board::is_solved()
+    
+    std::vector<std::vector<int>>& board::get_grid()
     {
-        
-        // for (auto& row : grid)
-        // {
-        //     std::unordered_set<int> seen;
-        //     for (int val : row)
-        //     {
-        //         if (seen.count(val) > 0 || val == 0 )
-        //             return false;
-
-        //         seen.insert(val);
-        //     }
-        // }
-
-
-        for (int i = 0; i<boardsize; i++)
-        {
-            std::unordered_set<int> seen;
-            for (int j=0 ; j<boardsize ; j++)
-            {
-                if (seen.count(grid[i][j]) > 0 || grid[i][j] == 0 )
-                    return false;
-
-                seen.insert(grid[i][j]);
-            }   
-        }
-        return true;
+        return grid;
     }
+    
     board::board(int size , int lvl)
     {
         /*
@@ -268,7 +255,6 @@ namespace sudukogame
             okaytowrite[i].resize(boardsize,false);
        }
     }
-
 
 }
 
