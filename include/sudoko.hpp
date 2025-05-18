@@ -29,6 +29,10 @@ class board{
         void setboard_from_originalfile(std::ifstream &sudukooriginalboard  );
         void setboard_from_progressfile(std::ifstream &sudukooriginal ,std::ifstream &sudukoprogress);
         void save_progress_to_file(std::ofstream& progressfile);
+        void modify_board(int col , int row , int val);
+        void print_board();
+        bool is_solved();
+        
         
         
     private:

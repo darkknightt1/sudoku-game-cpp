@@ -15,15 +15,29 @@ int main()
         #endif
     }
     else s1.setboard_from_originalfile(sudukofilee);
-    bool file_exists = std::filesystem::exists("lvls/lvl1_progress.suduko");
 
+    s1.print_board();
+
+    bool file_exists = std::filesystem::exists("lvls/lvl1_progress.suduko");
     if (file_exists) std::cout<<"file exist\n";
     else std::cout<<"file doesnot exist\n";
-    std::ofstream progress("lvls/lvl1_progress.suduko");
-    if (!progress.is_open()) {
-        std::cerr << "Error\n";
-    }
-    else s1.save_progress_to_file(progress);
+    // std::ofstream progress("lvls/lvl1_progress.suduko");
+    // if (!progress.is_open()) {
+    //     std::cerr << "Error\n";
+    // }
+    // else s1.save_progress_to_file(progress);
+    int row;
+    int col;
+    int val;
+    std::cin>>row;
+    std::cin>>col;
+    std::cin>>val;
+    s1.modify_board(col,row,val);
+    s1.print_board();
+    s1.is_solved();
+
+
+    
     return 0;
 }
 

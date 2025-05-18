@@ -1,5 +1,6 @@
 #include "../include/sudoko.hpp"
 #include <cmath>
+#include <unordered_set>
 
 
 namespace sudukogame
@@ -141,6 +142,81 @@ namespace sudukogame
     progressfile.close();
 }
 
+    void board::modify_board(int col , int row , int val)
+    {
+        if (( col<boardsize && col>=0 ) && ( row<boardsize && row>=0 )&& (val<=boardsize && val>0) )
+        {
+            if ( okaytowrite[row][col] ) this->grid[row][col]=val;
+            else 
+            {
+                //throw error
+                #if DEBUG
+                std::cerr<<"writing in an un-writable square\n";
+                #endif
+            }
+        }
+        else
+        {
+            //throw error
+            #if DEBUG
+            std::cerr<<"intput out of board range\n";
+            #endif
+                
+        }
+    }
+    
+    void board::print_board()
+    {
+        int root =static_cast<int> (std::sqrt(boardsize));
+        for (int row = 0; row < boardsize; ++row) {
+            if (row % root == 0) {
+                std::cout << "-------------------------------------\n";
+            }
+
+            for (int col = 0; col < boardsize; ++col) {
+                if (col % root == 0 && col != 0)
+                    std::cout << "| ";
+
+                if (this->grid[row][col] == 0)
+                    std::cout << ". ";
+                else
+                    std::cout << grid[row][col] << " ";
+            }
+            std::cout << "\n";
+        }
+        std::cout << "-------------------------------------\n";
+
+    }
+
+    bool board::is_solved()
+    {
+        
+        // for (auto& row : grid)
+        // {
+        //     std::unordered_set<int> seen;
+        //     for (int val : row)
+        //     {
+        //         if (seen.count(val) > 0 || val == 0 )
+        //             return false;
+
+        //         seen.insert(val);
+        //     }
+        // }
+
+
+        for (int i = 0; i<boardsize; i++)
+        {
+            std::unordered_set<int> seen;
+            for (int j=0 ; j<boardsize ; j++)
+            {
+                if (seen.count(grid[i][j]) > 0 || grid[i][j] == 0 )
+                    return false;
+
+                seen.insert(grid[i][j]);
+            }   
+        }
+        return true;
+    }
     board::board(int size , int lvl)
     {
         /*

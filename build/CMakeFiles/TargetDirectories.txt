@@ -1,3 +1,0 @@
-E:/DOWNLOADS/C++Project_Suduko/build/CMakeFiles/sudoku_game.dir
-E:/DOWNLOADS/C++Project_Suduko/build/CMakeFiles/edit_cache.dir
-E:/DOWNLOADS/C++Project_Suduko/build/CMakeFiles/rebuild_cache.dir
