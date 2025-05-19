@@ -4,18 +4,14 @@
 #include <unordered_map>
 #include <string>
 
-std::unordered_map <std::string,int> suduko_original_lvls_size ={{"lvls/lvl1",9},
-                                                                 {"lvls/lvl2",9},
-                                                                 {"lvls/lvl3",9},
-                                                                 {"lvls/lvl4",9},
-                                                                 {"lvls/lvl5",16},
-                                                                };
-
-void playsudoku()
-{
+// std::unordered_map <std::string,int> suduko_original_lvls_size ={{"lvls/lvl1",9},
+//                                                                  {"lvls/lvl2",9},
+//                                                                  {"lvls/lvl3",9},
+//                                                                  {"lvls/lvl4",9},
+//                                                                  {"lvls/lvl5",16},
+//                                                                 };
 
 
-}
 
 int main()
 {
@@ -54,16 +50,34 @@ int main()
     //solver.solve_backtracking();
     //solver.print_board();
 
-    game::boardgame* boardd = new game::sudokuboard(9);
-    std::ifstream sudukofilee("lvls/lvl1.suduko");
-    boardd->setboard_from_originalfile(sudukofilee);
-    boardd->print_board();
-    game::suduko_solver solved(boardd->get_board(),9);
-    solved.solve_backtracking();
-    solved.print_board();
 
+
+
+    // game::boardgame* boardd = new game::sudokuboard(9);
+    // std::ifstream sudukofilee("lvls/lvl1.suduko");
+    // boardd->setboard_from_originalfile(sudukofilee);
+    // boardd->print_board();
+    // game::suduko_solver solved(boardd->get_board(),9);
+    // solved.solve_backtracking();
+    // solved.print_board();
+
+    // delete boardd;
+
+
+
+
+
+
+    game::boardgame* boardd = new game::sudokuboard(9);
+    boardd->start();
     delete boardd;
-    
+
     return 0;
 }
+
+//to do
+// 1. add hints
+// 2. add errors throw ,try and catch
+// 3. add time
+// 4. solve gridsize passing issue , 
 

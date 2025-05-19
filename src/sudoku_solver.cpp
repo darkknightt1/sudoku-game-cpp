@@ -111,7 +111,10 @@ bool suduko_solver::solve_backtracking()
 
         return false; // Trigger backtracking
     }
-
+std::vector<std::vector<int>>& suduko_solver::get_board()
+{
+    return grid;
+}
 
 void suduko_solver::print_board()
 {

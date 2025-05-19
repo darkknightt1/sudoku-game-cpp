@@ -1,10 +1,11 @@
 #pragma once
 
 #define GUI 0
-#define DEBUG 1
+#define DEBUG 0
 #define MAX_LVL 5
 
 #define EXIT 2
+#define EXIT_LOOP 5
 
 #include <iostream>
 #include "boardgame.hpp"
@@ -41,10 +42,15 @@ class sudokuboard: public boardgame
     private:
         std::vector<std::vector<bool>> okaytowrite; 
         int movesallowed;//record no. of empty cells in the board
+        bool solved = false;
+        
+        //start game helping functions
         int showstartMenu();
+        int showloopMenu();
         void initialize_files();
-        void game_loop();
-        void showloopMenu();
+        void make_amove();
+        void game_loop(int choice);
+        bool is_solved();
 
 };
 

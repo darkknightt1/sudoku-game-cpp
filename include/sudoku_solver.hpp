@@ -14,6 +14,7 @@ class suduko_solver
         bool solve_backtracking();
         bool is_solved(); //check if the 
         void print_board();
+        std::vector<std::vector<int>>& get_board();
 
     private:
         int boardsize;

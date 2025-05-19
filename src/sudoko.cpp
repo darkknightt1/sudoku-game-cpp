@@ -1,7 +1,8 @@
 #include "sudoko.hpp"
+#include "sudoku_solver.hpp"
 #include <cmath>
 #include <filesystem>
-
+#include <unordered_set>
 
 namespace game
 {
@@ -125,6 +126,7 @@ namespace game
 
     void sudokuboard::save_progress_to_file(std::ofstream& progressfile) 
     {
+        
     int root =static_cast<int> (std::sqrt(boardsize));
     for (int row = 0; row < boardsize; ++row) {
         if (row % root == 0) {
@@ -271,6 +273,50 @@ namespace game
         return choice;
     }
 
+    bool sudokuboard::is_solved()
+{
+        
+        // for (auto& row : grid)
+        // {
+        //     std::unordered_set<int> seen;
+        //     for (int val : row)
+        //     {
+        //         if (seen.count(val) > 0 || val == 0 )
+        //             return false;
+
+        //         seen.insert(val);
+        //     }
+        // }
+
+        //checking rows uniqueness
+        for (int i = 0; i<boardsize; i++)
+        {
+            std::unordered_set<int> seen;
+            for (int j=0 ; j<boardsize ; j++)
+            {
+                if (seen.count(grid[i][j]) > 0 || grid[i][j] == 0 )
+                    return false;
+
+                seen.insert(grid[i][j]);
+            }   
+        }
+
+        //checking cols uniqueness
+        for (int i = 0; i<boardsize; i++)
+        {
+            std::unordered_set<int> seen;
+            for (int j=0 ; j<boardsize ; j++)
+            {
+                if (seen.count(grid[j][i]) > 0 || grid[j][i] == 0 )
+                    return false;
+
+                seen.insert(grid[j][i]);
+            }   
+        }
+
+
+        return true;
+}
 
     void sudokuboard::initialize_files()
     {
@@ -292,7 +338,7 @@ namespace game
             }
     }
     
-    void sudokuboard::game_loop()
+    void sudokuboard::make_amove()
     {
         print_board();
         std::cout<<"enter row , col , value\n";
@@ -305,6 +351,73 @@ namespace game
         }
 
     }   
+    
+    int sudokuboard::showloopMenu()
+    {
+        
+        int choice = 0;
+        std::cout<<"1. make a move\n";
+        std::cout<<"2. solve completely\n"; 
+        //std::cout<<"3. get a hint \n";
+        std::cout<<"4. reset board\n"; 
+        std::cout<<"5. save & exit\n"; 
+        std::cin>>choice;
+
+        while (choice >5 || choice < 1)
+        {
+            std::cout<<"invalid choice! enter again\n";
+            std::cout<<"1. make a move\n";
+            std::cout<<"2. solve completely\n"; 
+            //std::cout<<"3. get a hint \n"; 
+            std::cout<<"4. reset board\n"; 
+            std::cout<<"5. save & exit\n";
+            std::cin>>choice;
+        }
+        return choice;
+    }
+    
+    void sudokuboard::game_loop(int choice)
+    {
+        if (choice == 1)
+        {
+            if (movesallowed < 0)
+            {
+                if (is_solved())
+                {
+                    std::cout<<"Hurray! you have solved the board\n";
+                    solved = true;
+                    return;
+                }
+                
+            }
+            else
+            {
+                std::cout<<"board is full and not solved , reset or keep trying\n";
+            }
+            make_amove();
+        }
+
+        else if (choice == 2)
+        {
+            //solve the board
+            suduko_solver solver(this->grid,boardsize);
+            solver.solve_backtracking();
+            this->grid = solver.get_board();
+            print_board();
+        }
+        else if (choice == 3)
+        {
+            //get a hint
+        }
+        else if (choice == 4)
+        {
+            std::ifstream originalfile("lvls/lvl"+std::to_string(this->lvl)+".suduko");
+            std::ofstream progressfile("lvls/lvl"+std::to_string(this->lvl)+"_progress.suduko");
+            reset_board(originalfile,progressfile);
+        }
+        
+        
+    }
     void sudokuboard::start()
     {
         int start_choice = showstartMenu();
@@ -313,19 +426,23 @@ namespace game
             initialize_files();
 
             int loop_choice = showloopMenu();
-            while (loop_choice)
+            while (loop_choice != EXIT_LOOP && !solved)
             {
-                game_loop();
-                
-            }
-
+                game_loop(loop_choice);
+                loop_choice = showloopMenu();
+            } 
+            //save progress to file before exiting
+            std::ofstream progressfile("lvls/lvl"+std::to_string(this->lvl)+"_progress.suduko");
+            save_progress_to_file(progressfile);
             start_choice = showstartMenu();
         }
         
         
-        
     }
-}
+        
+}       
+        
+ 
 
 
 
