@@ -2,7 +2,7 @@
 #include <unordered_set>
 
 
-namespace suduko
+namespace game
 {
 
 suduko_solver::suduko_solver(std::vector<std::vector<int>> grid , int boardsize)

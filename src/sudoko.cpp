@@ -1,12 +1,12 @@
-#include "../include/sudoko.hpp"
+#include "sudoko.hpp"
 #include <cmath>
+#include <filesystem>
 
 
-
-namespace sudukogame
+namespace game
 {
 
-    void board::setboard_from_originalfile(std::ifstream &sudukooriginalboard )
+    void sudokuboard::setboard_from_originalfile(std::ifstream &sudukooriginalboard )
     {
         #if DEBUG
             std::cout<<"DEBUG , setboardfromfile\n";
@@ -46,7 +46,7 @@ namespace sudukogame
         
     }
 
-    void board::setboard_from_progressfile(std::ifstream &sudukooriginal , std::ifstream &sudukoprogress )
+    void sudokuboard::setboard_from_progressfile(std::ifstream &sudukooriginal , std::ifstream &sudukoprogress )
     {
 
         /*
@@ -123,7 +123,7 @@ namespace sudukogame
         
     }
 
-    void board::save_progress_to_file(std::ofstream& progressfile) 
+    void sudokuboard::save_progress_to_file(std::ofstream& progressfile) 
     {
     int root =static_cast<int> (std::sqrt(boardsize));
     for (int row = 0; row < boardsize; ++row) {
@@ -147,17 +147,23 @@ namespace sudukogame
     progressfile.close();
 }
 
-    void board::modify_board(int col , int row , int val)
+    bool sudokuboard::modify_board(int col , int row , int val)
     {
         if (( col<boardsize && col>=0 ) && ( row<boardsize && row>=0 )&& (val<=boardsize && val>0) )
         {
-            if ( okaytowrite[row][col] ) this->grid[row][col]=val;
+            if ( okaytowrite[row][col] ) { 
+                this->grid[row][col]=val;
+                movesallowed--;
+                return true;
+            }
+
             else 
             {
                 //throw error
                 #if DEBUG
                 std::cerr<<"writing in an un-writable square\n";
                 #endif
+                return false;
             }
         }
         else
@@ -166,17 +172,17 @@ namespace sudukogame
             #if DEBUG
             std::cerr<<"intput out of board range\n";
             #endif
-                
+            return false;      
         }
     }
     
-    void board::reset_board(std::ifstream &sudukooriginal , std::ofstream &sudukoprogress)
+    void sudokuboard::reset_board(std::ifstream &sudukooriginal , std::ofstream &sudukoprogress)
     {
         setboard_from_originalfile(sudukooriginal);
         save_progress_to_file(sudukoprogress);    
     } 
 
-    void board::print_board()
+    void sudokuboard::print_board()
     {
         int root =static_cast<int> (std::sqrt(boardsize));
         for (int row = 0; row < boardsize; ++row) {
@@ -199,12 +205,12 @@ namespace sudukogame
 
     }
     
-    std::vector<std::vector<int>>& board::get_grid()
+    std::vector<std::vector<int>>& sudokuboard::get_board()
     {
         return grid;
     }
     
-    board::board(int size , int lvl)
+    sudokuboard::sudokuboard(int size )
     {
         /*
            parameterized constructor 
@@ -230,18 +236,6 @@ namespace sudukogame
             std::cout<<"invalid board size\n";
             #endif
         }
-        //input lvl
-        if (lvl > 0 && lvl < MAX_LVL)
-        {
-            this->lvl = lvl;
-        }
-        else
-        {
-            //throw error
-            #if DEBUG
-            std::cout<<"invalid lvl\n";
-            #endif
-        }
         
        /*grid.resize(9);
         for (auto &row : grid) //more effecient method using iterators
@@ -255,7 +249,82 @@ namespace sudukogame
             okaytowrite[i].resize(boardsize,false);
        }
     }
+    
+    int sudokuboard::showstartMenu()
+    {
+        int choice = 0;
+        while (choice!=1 && choice!=2 )
+        {
+            std::cout<<"1. start new game\n";
+            std::cout<<"2. exit\n"; 
+            std::cin>>choice;
+        }
+        if ( choice == 1 )
+        {
+            this->lvl = 0;
+            while (this->lvl < 1 || this->lvl > MAX_LVL)
+            {
+                std::cout<<"choose level: ";
+                std::cin>>this->lvl;
+            } 
+        }
+        return choice;
+    }
 
+
+    void sudokuboard::initialize_files()
+    {
+            std::string original = "lvls/lvl"+std::to_string(this->lvl)+".suduko";
+            std::string progress = "lvls/lvl"+std::to_string(this->lvl)+"_progress.suduko";
+            bool file_exists = std::filesystem::exists(progress);
+            if (file_exists)
+            {
+                std::ifstream progressfile(progress);
+                std::ifstream originalfile(original);
+                if (originalfile.is_open() && progressfile.is_open()) 
+                    setboard_from_progressfile(originalfile,progressfile);
+            }
+            else
+            {
+                std::ifstream originalfile(original);
+                if (originalfile.is_open())
+                    setboard_from_originalfile(originalfile);
+            }
+    }
+    
+    void sudokuboard::game_loop()
+    {
+        print_board();
+        std::cout<<"enter row , col , value\n";
+        int row ,col, val;
+        std::cin>>row>>col>>val;
+        while(!modify_board(col,row,val))
+        {
+            std::cout<<"invalid! enter row , col , value\n";
+            std::cin>>row>>col>>val;
+        }
+
+    }   
+    void sudokuboard::start()
+    {
+        int start_choice = showstartMenu();
+        while (start_choice != EXIT)
+        { 
+            initialize_files();
+
+            int loop_choice = showloopMenu();
+            while (loop_choice)
+            {
+                game_loop();
+                
+            }
+
+            start_choice = showstartMenu();
+        }
+        
+        
+        
+    }
 }
 
 

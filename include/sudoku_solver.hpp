@@ -1,8 +1,10 @@
+#pragma once
+
 #include <vector>
 #include <iostream>
 #include<cmath>
 
-namespace suduko
+namespace game
 {
 
 class suduko_solver
@@ -19,8 +21,7 @@ class suduko_solver
         bool isValid(int row, int col, int num) const;
         bool findEmptyCell(int& row, int& col) const;
 
-}
-;
+};
 
 
 
